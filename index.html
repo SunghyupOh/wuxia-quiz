@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO & Title -->
+  <title>사자무림 : 무림 사자성어 퀴즈 (四字武林)</title>
+  <meta name="description" content="사자무림(四字武林) - 사자성어로 무림을 제패하라! 무협 웹소설 클리셰 상황극으로 치르는 천하제일 사자성어 퀴즈.">
+  <meta name="keywords" content="사자무림, 무협, 사자성어, 고사성어, 무협 퀴즈, 무림, 웹소설, 주화입마">
+
+  <!-- Open Graph (카카오톡, 페이스북, 디스코드 공유 미리보기) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="⚔️ 사자무림 : 무림 사자성어 퀴즈">
+  <meta property="og:description" content="그대의 무림 경지는 어디까지인가? 3번 틀리면 즉시 주화입마! 지금 비급을 펼치고 경지를 증명하라.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=1200&auto=format&fit=crop&q=80">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="⚔️ 사자무림 : 무림 사자성어 퀴즈">
+  <meta name="twitter:description" content="무협 웹소설 클리셰 상황극으로 치르는 천하제일 사자성어 퀴즈.">
+
+  <!-- Fonts & Stylesheet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&family=Noto+Serif+KR:wght@400;600;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- 1. TOP HEADER BAR -->
+  <header class="site-header">
+    <div class="header-inner">
+      <!-- 좌측: 사자무림 엠블럼 아이콘 & 브랜드명 -->
+      <div class="brand">
+        <div class="brand-seal" title="사자무림 낙관">四字</div>
+        <div class="brand-text">
+          <span class="brand-name">사자무림</span>
+          <span class="brand-sub">무림 사자성어 퀴즈</span>
+        </div>
+      </div>
+      <!-- 우측: 액션 버튼 그룹 (비급각 도감 + 음향 토글) -->
+      <div class="header-actions">
+        <button class="bigeup-btn" id="bigeupBtn" onclick="openBigeupModal()" title="무림맹 비급각 (사자성어 도감)">
+          <!-- 전통 무협 선장본(바느질 제본) 비급서 SVG 아이콘 -->
+          <svg class="bigeup-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3.5" y="2" width="17" height="20" rx="1.5" fill="#1e2c3e" stroke="#c49a45" stroke-width="1.2"/>
+            <rect x="11.5" y="4" width="4.8" height="11" rx="0.5" fill="#fcf8f0" stroke="#baa992" stroke-width="0.8"/>
+            <line x1="13.9" y1="6" x2="13.9" y2="8" stroke="#8b2626" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="13.9" y1="9.8" x2="13.9" y2="13" stroke="#8b2626" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="6.5" y1="2" x2="6.5" y2="22" stroke="#baa992" stroke-width="0.6" stroke-dasharray="1 1"/>
+            <line x1="3.5" y1="5" x2="6.5" y2="5" stroke="#fff8ee" stroke-width="1.3"/>
+            <line x1="3.5" y1="9.5" x2="6.5" y2="9.5" stroke="#fff8ee" stroke-width="1.3"/>
+            <line x1="3.5" y1="14.5" x2="6.5" y2="14.5" stroke="#fff8ee" stroke-width="1.3"/>
+            <line x1="3.5" y1="19" x2="6.5" y2="19" stroke="#fff8ee" stroke-width="1.3"/>
+            <line x1="3.5" y1="2" x2="3.5" y2="22" stroke="#fff8ee" stroke-width="1.3"/>
+          </svg>
+          <span class="bigeup-btn-text">비급각</span>
+        </button>
+        <button class="sound-toggle" id="soundToggle" onclick="handleSoundToggle()" title="배경음/효과음 제어">
+          <!-- 동종(청동 풍경) SVG 아이콘 -->
+          <span id="soundIconWrapper">
+            <svg class="header-icon-svg" id="soundSvg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M12 3C8.5 3 6 5.8 6 9.5V15l-2 2.5V19h16v-1.5l-2-2.5V9.5C18 5.8 15.5 3 12 3z"/>
+              <path d="M10 20a2 2 0 0 0 4 0"/>
+              <line x1="12" y1="1" x2="12" y2="3"/>
+            </svg>
+          </span>
+          <span id="soundText">음향 켬</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. MAIN GAME WRAPPER -->
+  <main class="main-wrapper">
+    <div class="container wide-mode" id="gameContainer">
+      <div class="scroll-frame board-mode" id="scrollFrame">
+        
+        <!-- START SCREEN (무협 마을 강호 방판 / 목제 게시판 테마) -->
+        <div class="screen active" id="startScreen">
+          <!-- 상단 기와 지붕 처마 & 강호 방판 현판 (Canopy & Signboard) -->
+          <div class="board-canopy">
+            <div class="canopy-roof">
+              <div class="roof-tiles"></div>
+              <div class="roof-eaves"></div>
+            </div>
+            <div class="canopy-signboard">
+              <span class="signboard-bracket left"></span>
+              <div class="signboard-plaque">
+                <span class="signboard-text">江湖 榜板</span>
+                <span class="signboard-sub">강호 게시판</span>
+              </div>
+              <span class="signboard-bracket right"></span>
+            </div>
+          </div>
+
+          <div class="start-grid">
+            
+            <!-- 좌측 포스터: 천하제일 강호 시험 초무 방(招武榜) -->
+            <div class="start-left notice-poster start-left-poster">
+              <div class="poster-pin pin-left" title="대장간 쇠못"></div>
+              <div class="poster-pin pin-right" title="대장간 쇠못"></div>
+
+              <div class="wuxia-badge">천하제일 강호 시험</div>
+              <h1 class="title">
+                <span>사자무림</span>
+                <span class="title-hanja">(四字武林)</span>
+              </h1>
+              <p class="subtitle">
+                사자성어로 무림을 제패하라! 강호에 첫발을 디딘 협객이여, 무림의 정세와 초식을 담은 사자성어를 꿰뚫어 그대의 내공을 증명하시오.
+              </p>
+
+              <ul class="features-list">
+                <li><strong>총 10초식:</strong> 30개 비급 중에서 무작위로 전개</li>
+                <li><strong>동적 4지선다:</strong> 매 판마다 새로운 오답 보기가 생성</li>
+                <li><strong>내력 구슬 3개:</strong> 3번 틀리면 즉시 <strong>주화입마(走火入魔)</strong></li>
+                <li><strong>최종 비무 결과:</strong> 무림 칭호와 족자 성적표 발급</li>
+              </ul>
+
+              <button class="main-btn start-exam-btn" onclick="startGame()">
+                시험 참가
+              </button>
+            </div>
+
+            <!-- 우측 포스터: 무림 경지 등급표 공고문 (Tier Board Notice Poster) -->
+            <div class="tier-board notice-poster tier-board-poster">
+              <div class="poster-pin pin-left" title="대장간 쇠못"></div>
+              <div class="poster-pin pin-right" title="대장간 쇠못"></div>
+              <div class="poster-seal" title="무림맹 공인 방(榜) 낙관">榜</div>
+
+              <div class="tier-board-header">
+                <div class="tier-board-sub">무림맹 공식 공고 · 강호 서열</div>
+                <h2 class="tier-board-title">📜 무림 경지 등급표</h2>
+              </div>
+              <div class="tier-list">
+                <!-- 1. 절정 (천하제일인) -->
+                <div class="tier-item tier-jeoljeong">
+                  <div class="tier-item-head">
+                    <span class="tier-name">🐉 절정 고수 (絶頂)</span>
+                    <span class="tier-cond">9 ~ 10 초식</span>
+                  </div>
+                  <div class="tier-item-body">
+                    <strong>천하제일인:</strong> 무림의 모든 이치를 꿰뚫고 사자무림을 제패한 전설
+                  </div>
+                </div>
+
+                <!-- 2. 일류 (명문대협) -->
+                <div class="tier-item tier-illyu">
+                  <div class="tier-item-head">
+                    <span class="tier-name">🗡️ 일류 고수 (一流)</span>
+                    <span class="tier-cond">7 ~ 8 초식</span>
+                  </div>
+                  <div class="tier-item-body">
+                    <strong>명문대협:</strong> 강호의 풍파를 꿰뚫는 문파 장문인급 혜안
+                  </div>
+                </div>
+
+                <!-- 3. 이류 (문파 제자) -->
+                <div class="tier-item tier-iryu">
+                  <div class="tier-item-head">
+                    <span class="tier-name">📜 이류 고수 (二流)</span>
+                    <span class="tier-cond">5 ~ 6 초식</span>
+                  </div>
+                  <div class="tier-item-body">
+                    <strong>문파 외문 제자:</strong> 기본기는 익혔으나 방심하면 내상
+                  </div>
+                </div>
+
+                <!-- 4. 삼류 (장터 왈패) -->
+                <div class="tier-item tier-samryu">
+                  <div class="tier-item-head">
+                    <span class="tier-name">🌾 삼류 무사 (三流)</span>
+                    <span class="tier-cond">0 ~ 4 초식</span>
+                  </div>
+                  <div class="tier-item-body">
+                    <strong>장터 왈패 / 주화입마:</strong> 주막 점소이에게 쫓겨날 수준
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- QUIZ SCREEN -->
+        <div class="screen" id="quizScreen">
+          <!-- 문제 섹션 우측 최상단 네비게이션 (처음으로 버튼) -->
+          <div class="quiz-header-nav">
+            <span class="quiz-nav-title">◈ 비급 심법 전개 중</span>
+            <button class="quit-btn" onclick="goToStartScreen()" title="장터(처음 화면)로 퇴각">
+              <span>⮌</span> 장터로 퇴각
+            </button>
+          </div>
+
+          <!-- Status Header -->
+          <div class="status-bar">
+            <div class="status-item">
+              <span style="color: var(--gold-dark);">초식</span>
+              <span id="questionNum" style="font-size: 16px;">1 / 10</span>
+            </div>
+            <div class="status-item">
+              <span style="color: #a32222;">내력(HP)</span>
+              <div class="hp-orbs" id="hpContainer">
+                <div class="orb"></div>
+                <div class="orb"></div>
+                <div class="orb"></div>
+              </div>
+            </div>
+            <div class="status-item">
+              <span id="comboBadge" class="combo-badge" style="display:none;">2연타!</span>
+              <span id="scoreText">0 점</span>
+            </div>
+          </div>
+
+          <!-- Timer bar -->
+          <div class="timer-track">
+            <div class="timer-fill" id="timerBar"></div>
+          </div>
+
+          <!-- Question Box with Stamp overlay -->
+          <div class="question-box" style="position: relative;">
+            <div class="question-meta" id="qCategory">【강호 기연】</div>
+            <div class="question-text" id="qText">문제가 여기에 표시됩니다.</div>
+            <div class="stamp-overlay" id="stampOverlay">通過</div>
+          </div>
+
+          <!-- Options (Dynamically Generated) -->
+          <div class="options-grid" id="optionsGrid">
+            <!-- Populated by game.js -->
+          </div>
+
+          <!-- Explanation Box (무협 홍등 비급 주해) -->
+          <div class="explanation-box" id="explanationBox">
+            <strong>🏮 비급 주해(註解):</strong> <span id="explanationText"></span>
+          </div>
+
+          <!-- Next Button -->
+          <button class="main-btn" id="nextBtn" style="display: none; margin-top: 16px;" onclick="nextQuestion()">
+            다음 초식 전개 (前進) ➔
+          </button>
+        </div>
+
+        <!-- RESULT SCREEN -->
+        <div class="screen" id="resultScreen" style="text-align: center;">
+          <div class="wuxia-badge" id="resultBadge">비무 종료</div>
+          
+          <div class="result-scroll">
+            <div class="tier-badge" id="tierSub">최종 판정 경지</div>
+            <div class="tier-title" id="tierTitle">절정 고수 (絶頂)</div>
+
+            <div class="result-stats">
+              <div>
+                <div style="color: #756a5c;">격파 초식</div>
+                <div class="result-stat-val" id="statCorrect">0 / 10</div>
+              </div>
+              <div>
+                <div style="color: #756a5c;">최대 연타</div>
+                <div class="result-stat-val" id="statCombo">0 콤보</div>
+              </div>
+              <div>
+                <div style="color: #756a5c;">무공 점수</div>
+                <div class="result-stat-val" id="statScore">0 점</div>
+              </div>
+            </div>
+
+            <p class="tier-desc" id="tierDesc">
+              강호의 모든 이치를 깨우친 천하제일인!
+            </p>
+          </div>
+
+          <button class="main-btn" onclick="shareResult()">
+            📜 강호 방(榜)을 붙여 알리기 (결과 복사)
+          </button>
+          <button class="sub-btn" onclick="restartGame()">
+            ☯️ 폐관수련(閉關) 후 다시 비무
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- 3. CUSTOM CONFIRM MODAL (동양풍 무협 컨펌 모달) -->
+  <div class="modal-overlay" id="confirmModal">
+    <div class="modal-card">
+      <div class="modal-badge">비무 중단</div>
+      <h3 class="modal-title">강호 퇴각 (江湖 退却)</h3>
+      <p class="modal-desc">
+        진행 중인 비급 시험을 중단하고 장터(처음 화면)로 물러나시겠소?
+      </p>
+      <div class="modal-subdesc">
+        ◈ [경고] 지금까지 격파한 초식과 내공 점수가 모두 초기화되오.
+      </div>
+      <div class="modal-actions">
+        <button class="modal-btn cancel-btn" onclick="closeConfirmModal()">계속 수련 (취소)</button>
+        <button class="modal-btn confirm-btn" onclick="confirmExitToStart()">강호 퇴각 (확인)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. BIGEUP ARCHIVE MODAL (펼쳐진 전통 무협 비급서 모달) -->
+  <div class="modal-overlay" id="bigeupModal">
+    <div class="open-book-modal">
+      <!-- 비급서 책갈피 붉은 비단 리본 -->
+      <div class="book-ribbon" title="비단 책갈피"></div>
+
+      <!-- 우측 상단 모서리 닫기 버튼 (X) -->
+      <button class="book-close-corner-btn" onclick="closeBigeupModal()" title="비급서 덮기">✕</button>
+
+      <!-- 펼쳐진 책 양면(Spread) 컨테이너 -->
+      <div class="open-book-spread">
+        
+        <!-- 좌측 페이지: 30대 사자성어 목차 -->
+        <div class="book-page left-page">
+          <div class="page-header">
+            <span>卷之一 ‧ 總目錄</span>
+            <span>武林秘笈</span>
+          </div>
+          <div class="page-title-area">
+            <h3 class="page-title">강호 사자성어 30대 비급</h3>
+            <p class="page-sub">살펴보고자 하는 비급 초식을 누르시오.</p>
+          </div>
+          <div class="book-list-scroll" id="bigeupLeftList">
+            <!-- game.js에서 30개 항목 동적 렌더링 -->
+          </div>
+        </div>
+
+        <!-- 중앙 제본 골짜기 (선장본 바느질 실) -->
+        <div class="book-spine-divider">
+          <div class="stitch"></div>
+          <div class="stitch"></div>
+          <div class="stitch"></div>
+          <div class="stitch"></div>
+        </div>
+
+        <!-- 우측 페이지: 선택된 사자성어 상세 주해 -->
+        <div class="book-page right-page">
+          <div class="page-header">
+            <span>卷之二 ‧ 秘笈解說</span>
+            <span id="bigeupPageNum">초식 1 / 30</span>
+          </div>
+          <div class="detail-content" id="bigeupRightDetail">
+            <!-- game.js에서 선택된 사자성어 상세 내용 렌더링 -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 하단 비급서 덮기 바 -->
+      <div class="book-bottom-bar">
+        <button class="sub-btn" style="margin-top: 8px; width: 100%; max-width: 320px;" onclick="closeBigeupModal()">
+          📖 비급서 덮기 (창 닫기)
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">복사 완료!</div>
+
+  <!-- Scripts -->
+  <script src="js/audio.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
